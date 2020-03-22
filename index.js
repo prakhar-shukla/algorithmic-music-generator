@@ -16,7 +16,7 @@ app.get('/generate', (req, res, next) => {
 
     var fileName = "output2.wav"
     console.log("Generating File")
-    const python = spawn('py', ['python-model/main.py'])
+    const python = spawn('python', ['python-model/main.py'])
     python.stdout.on('data', function (data) {
         dataToSend = data.toString();
     })
