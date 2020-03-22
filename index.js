@@ -13,7 +13,7 @@ app.get('/',(req,res,next)=>{
 })
 
 app.get('/generate', (req, res, next) => {
-    var dataToSend;
+
     var fileName = "output2.wav"
     console.log("Generating File")
     const python = spawn('py', ['python-model/main.py'])
