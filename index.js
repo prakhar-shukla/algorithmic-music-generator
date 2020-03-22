@@ -22,7 +22,6 @@ app.get('/generate', (req, res, next) => {
     })
 
     python.on('close', function (code) {
-        console.log("Closed process ", code);
         console.log("File Generated");
         res.download(fileName, fileName, (err) => {
             if (err) {
