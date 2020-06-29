@@ -1,0 +1,3 @@
+export const SET_MUSIC = "SET_MUSIC";
+export const ERROR_FETCHING_MUSIC = "ERROR_FETCHING_MUSIC"; 
+export const DOWNLOAD_MUSIC = "DOWNLOAD_MUSIC"; 

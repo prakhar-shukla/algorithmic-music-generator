@@ -1,48 +1,18 @@
 const express = require('express');
-const { spawn } = require('child_process');
-const cors = require('cors')
-const fs = require('fs')
-
 const app = express();
-app.use(cors());
 
-const PORT = process.env.PORT || 3000;
+const musicRoutes = require('./routes/musicRoutes');
 
-app.get('/',(req,res,next)=>{
-    res.send("Hello There");
-})
+musicRoutes(app);
 
-app.get('/generate', (req, res, next) => {
+if(process.env.NODE_ENV==="production"){
+    app.use(express.static("client/build"));
+    const path = require("path");
 
-    var fileName = "output2.wav"
-    console.log("Generating File")
-    const python = spawn('python', ['python-model/main.py'])
-    python.stdout.on('data', function (data) {
-        dataToSend = data.toString();
+    app.get("*",(req,res)=>{
+        res.sendFile(path.resolve(__dirname,"client","build","index.html"));
     })
+}
 
-    python.on('close', function (code) {
-        console.log("File Generated");
-        res.download(fileName, fileName, (err) => {
-            if (err) {
-                console.error("Error while downloading file")
-            }
-            else {
-                console.log("File downloaded")
-            }
-            fs.unlink(fileName, (err) => {
-                if (err) {
-                    console.error("Error while deleting file")
-                }
-                console.log("File deleted")
-            })
-        });
-
-    })
-
-})
-
-
-app.listen(PORT, () => {
-    console.log(`Listning on PORT ${PORT}`);
-})
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Listning on PORT ${PORT}`));

@@ -140,4 +140,4 @@ if __name__ == "__main__":
     rest_lists = [ ('r',4) ]
     tune_plus_rest = tuple(list(massaged_tune) + rest_lists)
 
-    pysynth_b.make_wav(massaged_tune, fn = "output2.wav", leg_stac = .7, bpm = 180)
+    pysynth_b.make_wav(massaged_tune, fn = "outputMusic.wav", leg_stac = .7, bpm = 180)
