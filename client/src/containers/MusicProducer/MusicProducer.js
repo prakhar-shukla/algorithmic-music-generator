@@ -2,7 +2,8 @@ import React from 'react';
 import AudioPlayer from '../../components/AudioPlayer/AudioPlayer';
 import { connect } from 'react-redux';
 import { generateMusic } from '../../actions';
-import Button from '../../components/UI/Button/Button'
+import Button from '../../components/UI/Button/Button';
+import classes from './MusicProducer.module.css'
 
 class MusicProducer extends React.Component {
 
@@ -11,10 +12,16 @@ class MusicProducer extends React.Component {
     }
 
     render() {
+        let generateButton = <Button onClick={this.generateNewMusic} disabled={this.props.music.generating || this.props.music.loading} >
+            {this.props.music.generating ? "Generating" : (this.props.music.loading ? "Loading" : "Generate New Music")}
+        </Button>
+
         return (
             <React.Fragment>
-                <Button onClick={this.generateNewMusic}>Generate New Music</Button>
-                <AudioPlayer source={this.props.music.objectUrl}/>
+                {generateButton}
+                <div className={classes.AudioContainer}>
+                    <AudioPlayer source={this.props.music.objectUrl} />
+                </div>
             </React.Fragment>
         )
     }
@@ -22,7 +29,7 @@ class MusicProducer extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        music : state.music
+        music: state.music
     }
 }
 

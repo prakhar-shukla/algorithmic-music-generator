@@ -2,23 +2,52 @@ import * as actions from '../actions/types'
 
 const initialState = {
     objectUrl: null,
-    fetchError: false
+    generating: false,
+    loading: false,
+    success: false,
+    error: false
 }
 
 
 const musicReducer = (state = initialState, action) => {
     switch (action.type) {
-        case actions.SET_MUSIC: {
+        case actions.MUSIC_FETCH_START: {
             const newState = {
-                objectUrl: action.payload.objectUrl,
-                fetchError: false
+                objectUrl: null,
+                generating: true,
+                loading: false,
+                success: false,
+                error: false
             }
             return newState;
         }
-        case actions.ERROR_FETCHING_MUSIC: {
+        case actions.MUSIC_FETCH_LOADING: {
             const newState = {
                 objectUrl: null,
-                fetchError: true
+                generating: false,
+                loading: true,
+                success: false,
+                error: false
+            }
+            return newState;
+        }
+        case actions.MUSIC_FETCH_SUCCESS: {
+            const newState = {
+                objectUrl: action.payload.objectUrl,
+                success: true,
+                generating: false,
+                loading: false,
+                error: false
+            }
+            return newState;
+        }
+        case actions.MUSIC_FETCH_ERROR: {
+            const newState = {
+                objectUrl: null,
+                success: false,
+                generating: false,
+                loading: false,
+                error: true
             }
             return newState;
         }
